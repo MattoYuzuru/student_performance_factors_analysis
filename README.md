@@ -38,12 +38,12 @@ To get started, clone this repository and ensure you have Jupyter Notebook insta
 
 1. **Clone the repository:**
    ```bash
-   git clone https://github.com/your_username/student-performance-analysis.git
+   git clone https://github.com/MattoYuzuru/student_performance_factors_analysis.git
    ```
 
 2. **Navigate to the project folder:**
    ```bash
-   cd student-performance-analysis
+   cd student_performance_factors_analysis
    ```
 
 3. **Install the dependencies:**
@@ -53,7 +53,7 @@ To get started, clone this repository and ensure you have Jupyter Notebook insta
 
 4. **Open the Jupyter Notebook:**
    ```bash
-   jupyter notebook student_performance_analysis.ipynb
+   jupyter notebook main.ipynb
    ```
 
 ## Usage
