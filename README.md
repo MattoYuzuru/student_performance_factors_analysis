@@ -20,14 +20,27 @@ This project is part of my studies at HSE's Data Science and Business Analytics 
 
 The dataset includes various student-related features, such as demographic information, academic background, and other factors. These attributes can provide insights into potential performance outcomes.
 
-### Features
-Some key features in the dataset include:
-- `gender`: Gender of the student
-- `age`: Age of the student
-- `studytime`: Time dedicated to studying
-- `absences`: Number of school absences
-- `G1`, `G2`, `G3`: Grades in three different periods
-- And many more...
+### Columns info
+1) `Hours_Studied` - Number of hours spent studying per week.
+2) `Attendance` - Percentage of classes attended.
+3) `Parental_Involvement` - Level of parental involvement in the student's education (Low, Medium, High).
+4) `Access_to_Resources` - Availability of educational resources (Low, Medium, High).
+5) `Extracurricular_Activities` - Participation in extracurricular activities (Yes, No).
+6) `Sleep_Hours` - Average number of hours of sleep per night.
+7) `Previous_Scores` - Scores from previous exams.
+8) `Motivation_Level` - Student's level of motivation (Low, Medium, High).
+9) `Internet_Access` - Availability of internet access (Yes, No).
+10) `Tutoring_Sessions` - Number of tutoring sessions attended per month.
+11) `Family_Income` - Family income level (Low, Medium, High).
+12) `Teacher_Quality`	- Quality of the teachers (Low, Medium, High).
+13) `School_Type` - Type of school attended (Public, Private).
+14) `Peer_Influence` - Influence of peers on academic performance (Positive, Neutral, Negative).
+15) `Physical_Activity` - Average number of hours of physical activity per week.
+16) `Learning_Disabilities` - Presence of learning disabilities (Yes, No).
+17) `Parental_Education_Level` - Highest education level of parents (High School, College, Postgraduate).
+18) `Distance_from_Home` - Distance from home to school (Near, Moderate, Far).
+19) `Gender` - Gender of the student (Male, Female).
+20) `Exam_Score` - Final exam score.
 
 ### Objective
 The goal is to identify significant predictors of student performance using exploratory data analysis and possibly some machine learning techniques.
