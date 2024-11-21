@@ -13,6 +13,7 @@ This project is part of my studies at HSE's Data Science and Business Analytics 
 - [Installation and Setup](#installation-and-setup)
 - [Usage](#usage)
 - [Analysis Summary](#analysis-summary)
+- [Project Structure](#project-structure)
 - [Contributions](#contributions)
 - [License](#license)
 
@@ -68,6 +69,7 @@ To get started, clone this repository and ensure you have Jupyter Notebook insta
    ```bash
    jupyter notebook main.ipynb
    ```
+   Or just run main.ipynb on your fav IDE.
 
 ## Usage
 
@@ -76,9 +78,6 @@ To get started, clone this repository and ensure you have Jupyter Notebook insta
    - Data Cleaning and Preprocessing
    - Exploratory Data Analysis (EDA)
    - Feature Engineering
-   - Predictive Modeling (if applicable)
-
-3. **Visualizations**: Run the visualization cells to generate insights into data distributions and correlations.
 
 ## Analysis Summary
 
@@ -86,6 +85,12 @@ This section will include a summary of key findings from the analysis, including
 - Significant correlations between study habits and performance
 - Visualization of the impact of absences on grades
 - Exploration of demographic influences on student success
+
+## Project Structure
+That is my first analysis project so far. I tried to keep structure simple, but it still looks a bit scattered
+1) After reading the dataset, I've cleaned NaN cells 
+2) Before making any hypothesis I made EDA
+3) 
 
 ## Contributions
 
