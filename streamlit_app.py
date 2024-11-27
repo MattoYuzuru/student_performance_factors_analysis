@@ -5,7 +5,6 @@ import pandas as pd
 import plotly.express as px
 import plotly.graph_objects as go
 import seaborn as sns
-from dotenv import load_dotenv
 from sklearn.compose import ColumnTransformer
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.metrics import mean_squared_error, r2_score
@@ -15,10 +14,7 @@ from sklearn.preprocessing import LabelEncoder
 from sklearn.preprocessing import OneHotEncoder, StandardScaler
 
 import requests
-import os
-import dotenv
 
-dotenv.load_dotenv()
 
 data = pd.read_csv('StudentPerformanceFactors.csv')
 st.title("Hello")
@@ -46,6 +42,6 @@ if submit:
         "parental_involvement": parental_involvement,
     }
 
-    response = requests.post(f"{os.getenv("API_PATH")}/predict", json=data_to_send)
+    response = requests.post(f"http://0.0.0.0:8000/predict", json=data_to_send)
 
     st.text(response.text)
