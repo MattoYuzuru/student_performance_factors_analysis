@@ -359,7 +359,7 @@ def main():
         }
 
         try:
-            response = requests.post(f"{os.getenv('API_PATH')}/predict", json=data_to_send)
+            response = requests.post(f"http://0.0.0.0:8000/predict", json=data_to_send)
             response.raise_for_status()
             status_placeholder.empty()
             st.success("🎉 Prediction Successful!")
