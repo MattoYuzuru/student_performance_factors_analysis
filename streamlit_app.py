@@ -1,41 +1,47 @@
-import streamlit as st
-import matplotlib.pyplot as plt
-import numpy as np
-import pandas as pd
-import plotly.express as px
-import plotly.graph_objects as go
-import seaborn as sns
-from dotenv import load_dotenv
-from sklearn.compose import ColumnTransformer
-from sklearn.ensemble import RandomForestRegressor
-from sklearn.metrics import mean_squared_error, r2_score
-from sklearn.model_selection import train_test_split
-from sklearn.pipeline import Pipeline
-from sklearn.preprocessing import LabelEncoder
-from sklearn.preprocessing import OneHotEncoder, StandardScaler
-
-import requests
 import os
+import time
+
 import dotenv
+import pandas as pd
+import requests
+import streamlit as st
 
 dotenv.load_dotenv()
 
 data = pd.read_csv('StudentPerformanceFactors.csv')
-st.title("Hello")
+
+st.title("🎓 Predict Your Exam Score")
 
 with st.form("exam_score"):
-    attendance = st.slider("Attendance", 0, 100)
-    hours_studied = st.slider("Hours Studied", 0, 50)
-    prev_score = st.slider("Previous Score", 0, 100)
-    tutoring_sessions = st.slider("Tutoring Sessions", 0, 10)
-    physical_activity = st.slider("Physical Activity", 0, 10)
-    access_to_resources = st.select_slider("Access to Resources", options=["Low", "Medium", "High"])
-    parental_involvement = st.select_slider("Parental Involvement", options=["Low", "Medium", "High"])
+    attendance = st.slider("📅 Attendance (%)", 0, 100)
+    hours_studied = st.slider("📚 Hours Studied per Week", 0, 50)
+    prev_score = st.slider("📊 Previous Score (%)", 0, 100)
+    tutoring_sessions = st.slider("👩‍🏫 Tutoring Sessions per Week", 0, 10)
+    physical_activity = st.slider("🏃‍ Physical Activity per Week (Hours)", 0, 10)
+    access_to_resources = st.select_slider(
+        "📖 Access to Learning Resources",
+        options=["Low", "Medium", "High"],
+    )
+    parental_involvement = st.select_slider(
+        "👨‍👩‍👧 Parental Involvement",
+        options=["Low", "Medium", "High"],
+    )
 
-    submit = st.form_submit_button("Predict Score!")
-
+    submit = st.form_submit_button("📈 Predict Score!")
 
 if submit:
+    status_placeholder = st.empty()
+
+    fun_messages = [
+        "📄 Sharpening your pencil...",
+        "🔍 Reviewing your notes...",
+        "🎯 Setting up the exam environment..."
+    ]
+
+    for msg in fun_messages:
+        status_placeholder.info(msg)
+        time.sleep(1.5)
+
     data_to_send = {
         "attendance": attendance,
         "hours_studied": hours_studied,
@@ -46,6 +52,19 @@ if submit:
         "parental_involvement": parental_involvement,
     }
 
-    response = requests.post(f"{os.getenv("API_PATH")}/predict", json=data_to_send)
+    try:
+        response = requests.post(f"{os.getenv('API_PATH')}/predict", json=data_to_send)
+        response.raise_for_status()
+        status_placeholder.empty()
+        st.success("🎉 Prediction Successful!")
+        st.markdown(
+            f'''<div style="padding: 20px; border: 2px solid #4CAF50; border-radius: 10px; background-color: #f9f9f9;">
+        <h3 style="color: #4CAF50;">
+        📈 Predicted Exam Score: {response.text}</h3>
+            </div>''', unsafe_allow_html=True
+        )
 
-    st.text(response.text)
+    except requests.exceptions.RequestException as e:
+        status_placeholder.empty()
+        st.error("🚨 Failed to get a prediction. Please try again.")
+        st.code(str(e))

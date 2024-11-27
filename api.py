@@ -34,8 +34,7 @@ def predict(data: StudentInfo):
          "access_to_resources": "Access_to_Resources",
          "parental_involvement": "Parental_Involvement", }, inplace=True, axis="columns",
     )
-    print(tmp)
 
     prediction = pipeline.predict(tmp)
-    # pipeline.predict(pd.read_json(data))
+    print(prediction[0])
     return prediction[0]
