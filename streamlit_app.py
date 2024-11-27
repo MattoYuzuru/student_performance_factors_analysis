@@ -1,7 +1,4 @@
-import os
 import time
-
-import dotenv
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
@@ -13,7 +10,6 @@ import streamlit as st
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.preprocessing import LabelEncoder
 from streamlit import cache_data
-
 
 
 @cache_data
