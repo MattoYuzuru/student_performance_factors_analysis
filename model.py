@@ -4,6 +4,7 @@ from sklearn.ensemble import RandomForestRegressor
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import OneHotEncoder, StandardScaler
 
+
 data = pd.read_csv('StudentPerformanceFactors.csv')
 
 data.drop_duplicates(inplace=True)
