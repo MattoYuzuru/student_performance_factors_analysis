@@ -288,8 +288,6 @@ def other_plot6(data):
 
 
 def main():
-    subprocess.run(["fastapi", "run", "api.py", "--reload"])
-
     data = load_and_preprocess_data()
 
     st.title("📊 Data Analysis and Visualization")
@@ -430,4 +428,5 @@ def main():
 
 
 if __name__ == "__main__":
+    subprocess.run(["fastapi", "run", "api.py"])
     main()
