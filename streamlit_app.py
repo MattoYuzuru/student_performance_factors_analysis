@@ -298,6 +298,7 @@ def main():
     get_sample()
 
     st.header("🔍 Correlation Heatmap")
+    st.write("First, let's check correlations with Exam Score.")
     correlation_matrix = generate_correlation_matrix(data)
     st.pyplot(correlation_matrix[0])
 
@@ -305,52 +306,70 @@ def main():
     st.write(correlation_matrix[1])
 
     st.header("🌟 Feature Importance")
+    st.write("In addition, let's find important features for Exam Score.")
     feature_importance = plot_feature_importance(data)
     st.pyplot(feature_importance)
 
     st.header("📊 Key Distributions")
+    st.write("Take a look at distribution of some most valuable data.")
     distributions = plot_distributions(data)
     st.pyplot(distributions)
 
     data = additional_columns(data)
 
     st.header("🏫 Attendance fraction")
+    st.write("Here is the distribution of attendance levels.")
     pie = pie_chart(data)
     st.plotly_chart(pie)
 
     st.header("🌌 3D Visualization")
+    st.write("3D scatter plot that shows relation between 2 fields with Exam Score.")
     scatter_3d = scatterplot_3d(data)
     st.plotly_chart(scatter_3d)
 
     st.header("📶 Pairplot")
+    st.write("Combination of plots to show various relations.")
     pair = pairplot(data)
     st.pyplot(pair)
 
     st.header("Hours studied distribution")
+    st.write("Line chart that simply shows relationship between hours studied and exam score.")
     plot1 = other_plot1(data)
     st.pyplot(plot1)
 
     st.header("Dependency on distance from home with attendance")
+    st.write("Box plots that show quartiles between distance home and attendance. Almost no dependency somehow.")
     plot2 = other_plot2(data)
     st.pyplot(plot2)
 
     st.header("Attendance on Exam score hue AtR")
+    st.write("Another simple line chart with relations of Attendance and Exam Score, hue AtR")
     plot3 = other_plot3(data)
     st.pyplot(plot3)
 
     st.header("Same plot, more detailes")
+    st.write("These box plots illustrate the impact of study resources on the exam score.")
     plot4 = other_plot4(data)
     st.pyplot(plot4)
 
     st.header("Tutoring sessions necessity")
+    st.write("And these box plots show number of tutoring sessions and their impact on the exam score.")
     plot5 = other_plot5(data)
     st.pyplot(plot5)
 
     st.header("Parental involvement dependency")
+    st.write(
+        '''Finally, box plots that check dependence of parental involvement in studying process, 
+        hue their education level.'''
+    )
     plot6 = other_plot6(data)
     st.pyplot(plot6)
 
     st.title("🎓 Predict Your Exam Score")
+    st.write(
+        '''Fill out this form and see your possible exam result. 
+        I trained a model with this dataset, so results are based on it.'''
+    )
 
     with st.form("exam_score"):
         attendance = st.slider("📅 Attendance (%)", 0, 100)
