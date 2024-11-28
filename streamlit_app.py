@@ -45,24 +45,6 @@ def additional_columns(data):
     return data
 
 
-def get_sample():
-    n = st.slider("Number of rows to fetch", min_value=1, max_value=50, value=5)
-
-    try:
-        response = requests.get(f"http://0.0.0.0:8000/data-sample?n={n}")
-        response.raise_for_status()
-
-        data_sample = response.json().get('sample', [])
-        if data_sample:
-            st.write("Here is a sample of the data:")
-            st.dataframe(data_sample)
-        else:
-            st.error("No data received from the server.")
-    except requests.exceptions.RequestException as e:
-        st.error("Failed to fetch data sample.")
-        st.code(str(e))
-
-
 @cache_data
 def generate_correlation_matrix(data):
     categorical_columns = ['Parental_Involvement', 'Access_to_Resources', 'Extracurricular_Activities',
@@ -293,7 +275,20 @@ def main():
     st.title("📊 Data Analysis and Visualization")
 
     st.header("🗂️ Data Sample")
-    get_sample()
+    n = st.slider("Number of rows to fetch", min_value=1, max_value=50, value=5)
+    try:
+        response = requests.get(f"http://0.0.0.0:8000/data-sample?n={n}")
+        response.raise_for_status()
+
+        data_sample = response.json().get('sample', [])
+        if data_sample:
+            st.write("Here is a sample of the data:")
+            st.dataframe(data_sample)
+        else:
+            st.error("No data received from the server.")
+    except requests.exceptions.RequestException as e:
+        st.error("Failed to fetch data sample.")
+        st.code(str(e))
 
     st.header("🔍 Correlation Heatmap")
     st.write("First, let's check correlations with Exam Score.")
