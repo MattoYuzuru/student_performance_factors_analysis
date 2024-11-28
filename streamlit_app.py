@@ -71,11 +71,9 @@ def generate_correlation_matrix(data):
     )
     plt.title("Correlation Matrix")
 
-    st.header("📈 Correlations with Exam Score")
     exam_score_correlation = correlation_matrix['Exam_Score'].sort_values(ascending=False)
-    st.write(exam_score_correlation)
 
-    return fig
+    return fig, exam_score_correlation
 
 
 @cache_data
@@ -150,6 +148,11 @@ def scatterplot_3d(data):
         labels={'Attendance': 'Attendance (%)', 'Hours_Studied': 'Study Hours', 'Exam_Score': 'Exam Score'}
     )
 
+    fig2.update_layout(
+        width=1200,
+        height=800,
+    )
+
     return fig2
 
 
@@ -203,7 +206,6 @@ def other_plot3(data):
     fig, ax = plt.subplots(figsize=(12, 6))
     sns.lineplot(data=data, x='Attendance', y='Exam_Score', hue='Access_to_Resources', ax=ax)
     ax.set_yticks(np.arange(60, 81, 2))
-    st.pyplot(fig)
     return fig
 
 
@@ -267,7 +269,10 @@ def main():
 
     st.header("🔍 Correlation Heatmap")
     correlation_matrix = generate_correlation_matrix(data)
-    st.pyplot(correlation_matrix)
+    st.pyplot(correlation_matrix[0])
+
+    st.header("📈 Correlations with Exam Score")
+    st.write(correlation_matrix[1])
 
     st.header("🌟 Feature Importance")
     feature_importance = plot_feature_importance(data)
@@ -289,25 +294,29 @@ def main():
 
     st.header("📶 Pairplot")
     pair = pairplot(data)
-    st.pyplot(pair)  # !
+    st.pyplot(pair)
 
-    st.header("Other plots")
-
+    st.header("Hours studied distribution")
     plot1 = other_plot1(data)
     st.pyplot(plot1)
 
+    st.header("Dependency on distance from home with attendance")
     plot2 = other_plot2(data)
     st.pyplot(plot2)
 
+    st.header("Attendance on Exam score hue AtR")
     plot3 = other_plot3(data)
     st.pyplot(plot3)
 
+    st.header("Same plot, more detailes")
     plot4 = other_plot4(data)
     st.pyplot(plot4)
 
+    st.header("Tutoring sessions necessity")
     plot5 = other_plot5(data)
     st.pyplot(plot5)
 
+    st.header("Parental involvement dependency")
     plot6 = other_plot6(data)
     st.pyplot(plot6)
 
