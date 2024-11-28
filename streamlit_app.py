@@ -147,8 +147,13 @@ def pie_chart(data):
     values = tdata.values
 
     fig = go.Figure(data=[go.Pie(labels=labels, values=values)])
-    fig.update_traces(textinfo='percent+label', hole=0.4)  # Add optional styling for better visualization
+    fig.update_traces(textinfo='percent+label', hole=0.4)
     fig.update_layout(title_text="Attendance Rough Distribution", title_x=0.5)
+
+    fig.update_layout(
+        width=600,
+        height=600,
+    )
 
     return fig
 
