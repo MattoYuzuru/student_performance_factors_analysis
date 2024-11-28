@@ -36,7 +36,6 @@ def get_data_sample(n: int = 5):
         data[col] = data[col].map(changing)
 
     sample_data = data.sample(n=n).to_dict(orient="records")
-    print(len(sample_data))
     return {"sample": sample_data}
 
 

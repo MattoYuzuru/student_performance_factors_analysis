@@ -46,7 +46,7 @@ def additional_columns(data):
 
 
 def get_sample():
-    n = st.slider("Number of rows to fetch", min_value=1, max_value=20, value=5)
+    n = st.slider("Number of rows to fetch", min_value=1, max_value=50, value=5)
 
     try:
         response = requests.get(f"http://0.0.0.0:8000/data-sample?n={n}")
