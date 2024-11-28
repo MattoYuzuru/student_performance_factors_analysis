@@ -5,17 +5,19 @@ from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import OneHotEncoder, StandardScaler
 
 
-data = pd.read_csv('StudentPerformanceFactors.csv')
+def clean_data(data):
+    data.drop_duplicates(inplace=True)
+    data.dropna(inplace=True)
+    data.reset_index(drop=True, inplace=True)
 
-data.drop_duplicates(inplace=True)
-data.dropna(inplace=True)
-data.reset_index(drop=True, inplace=True)
+    columns_to_map = ['Extracurricular_Activities', 'Internet_Access', 'Learning_Disabilities']
+    changing = {'Yes': True, 'No': False}
+    for col in columns_to_map:
+        data[col] = data[col].map(changing)
+    return data
 
-columns_to_map = ['Extracurricular_Activities', 'Internet_Access', 'Learning_Disabilities']
-changing = {'Yes': True, 'No': False}
-for col in columns_to_map:
-    data[col] = data[col].map(changing)
 
+data = clean_data(pd.read_csv('StudentPerformanceFactors.csv'))
 
 features = ['Attendance', 'Hours_Studied', 'Previous_Scores',
             'Tutoring_Sessions', 'Physical_Activity',

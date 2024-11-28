@@ -2,7 +2,7 @@ import pandas as pd
 from fastapi import FastAPI
 from pydantic import BaseModel
 
-from model import pipeline
+from model import pipeline, clean_data
 
 app = FastAPI()
 
@@ -24,19 +24,8 @@ def read_root():
 
 @app.get("/data-sample")
 def get_data_sample(n: int = 5):
-    data = pd.read_csv("StudentPerformanceFactors.csv")
-
-    data.drop_duplicates(inplace=True)
-    data.dropna(inplace=True)
-    data.reset_index(drop=True, inplace=True)
-
-    columns_to_map = ['Extracurricular_Activities', 'Internet_Access', 'Learning_Disabilities']
-    changing = {'Yes': True, 'No': False}
-    for col in columns_to_map:
-        data[col] = data[col].map(changing)
-
+    data = clean_data(pd.read_csv("StudentPerformanceFactors.csv"))
     sample_data = data.sample(n=n).to_dict(orient="records")
-    print(len(sample_data))
     return {"sample": sample_data}
 
 
@@ -54,5 +43,4 @@ def predict(data: StudentInfo):
     )
 
     prediction = pipeline.predict(tmp)
-    print(prediction[0])
     return prediction[0]
