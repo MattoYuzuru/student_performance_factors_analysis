@@ -10,6 +10,7 @@ import streamlit as st
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.preprocessing import LabelEncoder
 from streamlit import cache_data
+import subprocess
 
 
 @cache_data
@@ -263,6 +264,9 @@ def other_plot6(data):
 
 
 def main():
+
+    subprocess.run(["fastapi", "run", "api.py"])
+
     data = load_and_preprocess_data()
 
     st.title("📊 Data Analysis and Visualization")
