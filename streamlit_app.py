@@ -1,4 +1,6 @@
+import subprocess
 import time
+
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
@@ -10,7 +12,6 @@ import streamlit as st
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.preprocessing import LabelEncoder
 from streamlit import cache_data
-import subprocess
 
 
 @cache_data
@@ -42,6 +43,23 @@ def additional_columns(data):
         labels=['Low', 'Medium', 'High']
     )
     return data
+
+
+def get_sample():
+    n = st.slider("Number of rows to fetch", min_value=1, max_value=20, value=5)
+
+    try:
+        response = requests.get(f"http://0.0.0.0:8000/data-sample?n={n}")
+        response.raise_for_status()
+        data_sample = response.json().get("sample", [])
+        if data_sample:
+            st.write("Here is a sample of the data:")
+            st.dataframe(data_sample)
+        else:
+            st.error("No data received from the server.")
+    except requests.exceptions.RequestException as e:
+        st.error("Failed to fetch data sample.")
+        st.code(str(e))
 
 
 @cache_data
@@ -262,12 +280,14 @@ def other_plot6(data):
 
 
 def main():
-
-    subprocess.run(["fastapi", "run", "api.py"])
+    subprocess.run(["fastapi", "run", "api.py", "--reload"])
 
     data = load_and_preprocess_data()
 
     st.title("📊 Data Analysis and Visualization")
+
+    st.header("🗂️ Data Sample")
+    get_sample()
 
     st.header("🔍 Correlation Heatmap")
     correlation_matrix = generate_correlation_matrix(data)
@@ -293,7 +313,7 @@ def main():
 
     st.header("📶 Pairplot")
     pair = pairplot(data)
-    st.pyplot(pair)  # !
+    st.pyplot(pair)
 
     st.header("Other plots")
 
@@ -314,7 +334,6 @@ def main():
 
     plot6 = other_plot6(data)
     st.pyplot(plot6)
-
 
     st.title("🎓 Predict Your Exam Score")
 
@@ -370,7 +389,6 @@ def main():
                 </div>'''
                 , unsafe_allow_html=True
             )
-
         except requests.exceptions.RequestException as e:
             status_placeholder.empty()
             st.error("🚨 Failed to get a prediction. Please try again.")

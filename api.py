@@ -22,6 +22,13 @@ def read_root():
     return {"Hello": "World"}
 
 
+@app.get("/data-sample")
+def get_data_sample(n: int = 5):
+    data = pd.read_csv("StudentPerformanceFactors.csv")
+    sample_data = data.sample(n=n).to_dict(orient="records")
+    return {"sample": sample_data}
+
+
 @app.post("/predict")
 def predict(data: StudentInfo):
     tmp = pd.read_json(data.model_dump_json(), orient="index").T
