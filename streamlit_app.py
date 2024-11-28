@@ -51,7 +51,8 @@ def get_sample():
     try:
         response = requests.get(f"http://0.0.0.0:8000/data-sample?n={n}")
         response.raise_for_status()
-        data_sample = response.json().get("sample", [])
+
+        data_sample = response.json().get('sample', [])
         if data_sample:
             st.write("Here is a sample of the data:")
             st.dataframe(data_sample)
