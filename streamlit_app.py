@@ -1,4 +1,4 @@
-import subprocess
+import os
 import time
 
 import matplotlib.pyplot as plt
@@ -277,7 +277,7 @@ def main():
     st.header("🗂️ Data Sample")
     n = st.slider("Number of rows to fetch", min_value=1, max_value=50, value=5)
     try:
-        response = requests.get(f"http://0.0.0.0:8000/data-sample?n={n}")
+        response = requests.get(f"{os.getenv("API_HOST", "http://0.0.0.0:8000")}/data-sample?n={n}")
         response.raise_for_status()
 
         data_sample = response.json().get('sample', [])
@@ -405,7 +405,7 @@ def main():
         }
 
         try:
-            response = requests.post(f"http://0.0.0.0:8000/predict", json=data_to_send)
+            response = requests.post(f"{os.getenv("API_HOST", "http://0.0.0.0:8000")}/predict", json=data_to_send)
             response.raise_for_status()
             status_placeholder.empty()
             st.success("🎉 Prediction Successful!")
@@ -423,5 +423,4 @@ def main():
 
 
 if __name__ == "__main__":
-    subprocess.run(["fastapi", "run", "api.py"])
     main()

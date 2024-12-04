@@ -1,0 +1,16 @@
+FROM python:latest
+LABEL authors="mattoyudzuru"
+
+WORKDIR /app
+
+COPY api.py model.py requirements.txt ./
+
+RUN pip install pandas
+RUN pip install fastapi[standard]
+RUN pip install scikit-learn
+
+COPY StudentPerformanceFactors.csv ./
+
+EXPOSE 8000
+
+CMD ["fastapi", "run", "api.py"]
