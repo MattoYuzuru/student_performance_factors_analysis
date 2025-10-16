@@ -12,7 +12,7 @@ services:
     image: front
     container_name: front
     environment:
-      API_HOST: https://keykomi.com/api
+      API_HOST: https://dsba.keykomi.com/api   # обновлено с keykomi.com на dsba.keykomi.com
     restart: always
 
   nginx:
@@ -23,7 +23,7 @@ services:
       - "443:443"
     volumes:
       - ./nginx.conf:/etc/nginx/conf.d/default.conf:ro
-      - ./certs:/etc/letsencrypt:ro
+      - ./certs:/etc/letsencrypt:ro              # ✅ здесь certbot будет хранить реальные сертификаты
     depends_on:
       - api
       - front
