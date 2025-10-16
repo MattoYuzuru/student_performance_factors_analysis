@@ -90,7 +90,6 @@ This section will include a summary of key findings from the analysis, including
 That is my first analysis project so far. I tried to keep structure simple, but it still looks a bit scattered
 1) After reading the dataset, I've cleaned NaN cells 
 2) Before making any hypothesis I made EDA
-3) 
 
 ## Contributions
 
